@@ -2,7 +2,6 @@ import Card from "./Card";
 import React from "react";
 import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
-import List from "./List";
 
 describe("Card", () => {
   it("renders without crashing", () => {
@@ -12,7 +11,7 @@ describe("Card", () => {
   });
   it("renders to UI as expected", () => {
     const tree = renderer
-      .create(<Card title="Something" content="something else" />)
+      .create(<Card title="something" content="someotherthing" />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
