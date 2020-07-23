@@ -50,6 +50,49 @@ class App extends Component {
   },
 }
 
+handleAddRandomCardClick = (listId) => {
+  console.log("Add card...");
+  const newCard = this.newRandomCard();
+ 
+  const cards = this.state.allCards;
+  cards[newCard.id] = newCard;
+  
+  //const list = this.state.lists.find(list => list.id === id);
+  //const listArray = this.state.lists.filter(targetList => targetList.id !== list.id);
+
+  //list.cardIds.push(newCard.id);
+
+  //const newLists = [...listArray, list].sort((a,b) => a.key-b.key);
+
+  const newLists = this.state.lists.map(list => {
+    if (list.id === listId) {
+      return {
+        ...list,
+        cardIds: [...list.cardIds, newCard.id]
+      };
+    }
+    return list;
+  })
+
+  this.setState({
+    allCards: cards,
+    lists: newLists,
+  });
+
+
+
+}
+
+newRandomCard = () => {
+  const id = Math.random().toString(36).substring(2, 4)
+    + Math.random().toString(36).substring(2, 4);
+  return {
+    id,
+    title: `Random Card ${id}`,
+    content: 'lorem ipsum',
+  }
+}
+
 handleDeleteClick = (id) => {
   const newLists = this.state.lists.map(list => {
     return {
@@ -83,9 +126,11 @@ omit = (obj, keyToOmit) => {
           {this.state.lists.map(list => (
             <List
               key={list.id}
+              id={list.id}
               header={list.header}
               cards={list.cardIds.map(id => this.state.allCards[id])}
               onDeleteClicked = {this.handleDeleteClick}
+              addCardClicked = {this.handleAddRandomCardClick}
             />
           ))}
         </div>

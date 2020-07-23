@@ -18,7 +18,7 @@ export default function List(props) {
             onDeleteClicked={props.onDeleteClicked}
           />
         )}
-        <button
+        <button onClick={() => props.addCardClicked(props.id)}
           type='button'
           className='List-add-button'
         >
